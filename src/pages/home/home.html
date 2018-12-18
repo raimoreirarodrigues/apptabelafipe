@@ -1,17 +1,59 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>FIPE</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-item>
+    <ion-label>Tipo</ion-label>
+    <ion-select [(ngModel)]="tipoVeiculo" (ionChange)="consultarMarcas()">
+      <ion-option *ngFor="let tipo of tiposVeiculos" value="{{tipo}}">{{tipo}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <ion-item *ngIf="marcasVeiculos.length>0">
+    <ion-label>Marca</ion-label>
+    <ion-select [(ngModel)]="marcaVeiculo" (ionChange)="consultarModelos()">
+      <ion-option *ngFor="let marca of marcasVeiculos" value="{{marca.codigo}}">{{marca.nome}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <ion-item *ngIf="modelosVeiculos.length>0">
+    <ion-label>Modelo</ion-label>
+    <ion-select [(ngModel)]="modeloVeiculo" (ionChange)="consultarVersoes()">
+      <ion-option *ngFor="let modelo of modelosVeiculos" value="{{modelo.codigo}}">{{modelo.nome}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <ion-item *ngIf="versoesVeiculos.length>0">
+    <ion-label>Ano</ion-label>
+    <ion-select [(ngModel)]="versaoVeiculo">
+      <ion-option *ngFor="let versao of versoesVeiculos" value="{{versao.codigo}}">{{versao.nome}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <button ion-button block (click)="resultadoFinal()" [disabled]="verificarDadosPreenchidos()"><ion-icon name="search"></ion-icon> Consultar</button>
+  <br>
+  <div *ngIf="mostrarResultado==true">
+    <h4>Resultado consulta...</h4>
+    <hr>
+  </div>
+  <ion-card *ngIf="mostrarResultado==true">
+
+    <ion-card-header>
+      {{resultadosConsulta.Modelo}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-icon name="star" item-start></ion-icon>Cod.Fipe: {{resultadosConsulta.CodigoFipe}}
+      <br>
+      <ion-icon name="star" item-start></ion-icon>Marca: {{resultadosConsulta.Marca}}
+      <br>
+      <ion-icon name="star" item-start></ion-icon>Combustível: {{resultadosConsulta.Combustivel}}
+      <br>
+      <ion-icon name="star" item-start></ion-icon>Referência: {{resultadosConsulta.MesReferencia}}
+      <br>
+      <ion-icon name="star" item-start></ion-icon>Valor: {{resultadosConsulta.Valor}}
+    </ion-card-content>
+  </ion-card>
 </ion-content>

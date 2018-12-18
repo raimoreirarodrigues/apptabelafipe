@@ -1,5 +1,13 @@
 {
   "name": "fipe",
-  "integrations": {},
-  "type": "ionic-angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/fipeapi",
+      "proxyUrl": "http://fipeapi.appspot.com/api/1/"
+    }
+  ]
 }
